@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+</head>
+
+
+<script th:inline="javascript">
+    var IP = /*[[${IP}]]*/;
+</script>
+
+<body onload="RestGET('info')">
+<div id="scena">
+
+    Load
+
+</div>
+<div id="command"></div>
+<div id="output"></div>
+<div id="playingSong"></div>
+<div id="playList"></div>
+<div id="fileList"></div>
+<script type="text/javascript" th:src="@{script.js}"></script>
+</body>
+
+
+</html>
