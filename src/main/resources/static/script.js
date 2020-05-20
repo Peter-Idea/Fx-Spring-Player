@@ -72,8 +72,8 @@ function reqReadyStateChange(){
  }
 
 
-var urlGlobal="http://"+IP+":8080/";
-
+//var urlGlobal="http://"+IP+":8080/";
+var urlGlobal=URL;
 var RestGET = function(command) {
 var url=urlGlobal+"player";
     action="listFile";

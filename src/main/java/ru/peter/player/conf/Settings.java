@@ -1,5 +1,6 @@
 package ru.peter.player.conf;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -9,6 +10,8 @@ public class Settings {
     private String musicDirectory;
     private Integer currentSong;
     private boolean isRepeate;
+    @Value("${server.port}")
+    private String port;
 
 //    TODO подумать над тем как сохранять настройки
 
@@ -41,4 +44,11 @@ public class Settings {
         isRepeate = repeate;
     }
 
+    public String getPort() {
+        return port;
+    }
+
+    public void setPort(String port) {
+        this.port = port;
+    }
 }

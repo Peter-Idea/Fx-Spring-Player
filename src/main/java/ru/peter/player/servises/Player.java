@@ -1,5 +1,6 @@
 package ru.peter.player.servises;
 
+import javafx.scene.media.Media;
 import ru.peter.player.conf.Settings;
 import ru.peter.player.entity.PlayList;
 import javafx.scene.media.MediaPlayer;
@@ -18,40 +19,57 @@ public class Player {
     public Player(PlayList playList) {
         this.playList = playList;
         System.out.println("Player constructor");
-        player = new MediaPlayer(this.playList.getSong());
-        play();
+        play(this.playList.getSong());
     }
 
     public void play() {
         System.out.println("Player play");
+        if (player!=null){
         player.play();
-        player.setOnEndOfMedia(() -> {
-            next();
-        });
+        player.setOnEndOfMedia(() -> next());
+        }
+    }
+
+    public boolean play(Media media) {
+
+        if (media != null) {
+            player = new MediaPlayer(media);
+            play();
+            System.out.println("Player play song ");
+            return true;
+        }
+        System.out.println("Player not play song ");
+        return false;
     }
 
 
     public void numberSongPlay(Integer number) {
         playList.setCurrentSong(number);
         player.stop();
-        player = new MediaPlayer(playList.getSong());
-        play();
+        play(playList.getSong());
     }
 
-    public void stop() {
-        player.stop();
+    public boolean stop() {
+        if (player != null) {
+            player.stop();
+            return true;
+        }
+        return false;
     }
+
+    public void pause() {
+        player.pause();
+    }
+
 
     public void next() {
-        player.stop();
-        player = new MediaPlayer(playList.nextSong());
-        play();
+        stop();
+        play(playList.nextSong());
     }
 
     public void prev() {
-        player.stop();
-        player = new MediaPlayer(playList.prevSong());
-        play();
+        stop();
+        play(playList.prevSong());
     }
 
     public MediaPlayer info() {
@@ -59,10 +77,9 @@ public class Player {
     }
 
     public boolean playDir(String path) {
-        System.out.println("плеер останавливает проигрывание");
-        stop();
         System.out.println("Загружаем в playList");
         if (playList.setPlayList(path, 0)) return false;
+        else stop();
         play();
         return true;
     }
